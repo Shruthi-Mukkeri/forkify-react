@@ -1,5 +1,6 @@
-.inputSearch::placeholder {
+.inputSearchElement::placeholder {
   color: #d3c7c3;
+  font-size: 1.1rem;
 }
 .inputSearchElement:focus {
   /* border: none; */

@@ -19,11 +19,11 @@ const Navbar = () => {
           placeholder="Search over 1,000,000 recipes..."
         ></input>
         <div
-          className={`${styles["searchBtn"]} p-2 rounded-pill text-white d-flex align-items-center`}
+          className={`${styles["searchBtn"]} p-2 p-md-3 px-md-4 rounded-pill text-white d-flex align-items-center`}
         >
-          <BsSearch className="me-md-2 mx-md-1" size="18" />
+          <BsSearch className="ms-md-3 " size="18" />
           <button
-            className={`bg-transparent d-none d-md-block  text-white fs-6 border-0 rounded-pill  `}
+            className={`bg-transparent d-none d-md-block mx-2 text-white fs-6 border-0 rounded-pill  `}
           >
             SEARCH
           </button>
@@ -32,7 +32,7 @@ const Navbar = () => {
 
       <div className="d-flex flex-no-wrap">
         <div
-          className={` ${styles["navBtn"]} ms-2 d-flex align-items-center py-4 py-md-5 p-2 p-md-4`}
+          className={` ${styles["navBtn"]} ms-2 d-flex align-items-center p-2 py-md-4`}
         >
           <LiaEdit color="#F38E82" size="24" />
           <button
@@ -43,10 +43,12 @@ const Navbar = () => {
         </div>
 
         <div
-          className={`${styles["navBtn"]} d-flex align-items-center py-4 py-md-5  p-2 p-md-4`}
+          className={`${styles["navBtn"]} d-flex align-items-center  p-2 py-md-4`}
         >
           <BsBookmark color="#F38E82" size="18" />
-          <button className={`border-0 bg-transparent d-none d-md-block`}>
+          <button
+            className={`border-0 bg-transparent my-md-2 d-none d-md-block`}
+          >
             BOOKMARK
           </button>
         </div>
