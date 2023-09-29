@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  box-sizing: border-box;
+  background: linear-gradient(to bottom right, #fbdb89, #f48982);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #615551;
+  min-height: calc(100vh - 8vw);
+}

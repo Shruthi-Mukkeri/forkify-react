@@ -1,0 +1,18 @@
+.mainContainer {
+  /* margin-top: 20px; */
+  max-width: 120rem;
+  min-height: 117rem;
+  margin: 0;
+}
+
+.nav {
+  background: #f9f5f3;
+}
+
+@media (width >= 1200px) {
+  .mainContainer {
+    max-width: 100%;
+    margin: 4vw auto;
+    border-radius: 10px;
+  }
+}

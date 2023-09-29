@@ -1,6 +1,12 @@
 import "./App.css";
+import HomePage from "./components/HomePage";
+
 function App() {
-  return <div className="btn btn-primary">hello react</div>;
+  return (
+    <>
+      <HomePage />
+    </>
+  );
 }
 
 export default App;
