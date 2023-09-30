@@ -1,0 +1,13 @@
+.previewImage {
+  width: 48px;
+  height: 48px;
+}
+
+.previewTitle {
+  color: #f38e90;
+  font-size: 0.8rem;
+}
+
+.previewPublisher {
+  font-size: 0.7rem;
+}

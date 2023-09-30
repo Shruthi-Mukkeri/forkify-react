@@ -1,3 +1,4 @@
+import Aside from "./Aside";
 import styles from "./Homepage.module.css";
 import Navbar from "./Navbar";
 
@@ -13,8 +14,10 @@ const HomePage = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-4 bg-primary">Aside</div>
-          <div className="col bg-secondary">main</div>
+          <div className="col-4 border  bg-white">
+            <Aside />
+          </div>
+          <div className={`col ${styles["aside"]}`}>main</div>
         </div>
       </div>
     </>
