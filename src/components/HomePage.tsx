@@ -1,6 +1,7 @@
 import Aside from "./Aside";
 import styles from "./Homepage.module.css";
 import Navbar from "./Navbar";
+import RecipeDetails from "./RecipeDetails";
 
 const HomePage = () => {
   return (
@@ -14,10 +15,12 @@ const HomePage = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-4 border  bg-white">
+          <div className="col-3 p-0">
             <Aside />
           </div>
-          <div className={`col ${styles["aside"]}`}>main</div>
+          <div className={`col ${styles["aside"]}`}>
+            <RecipeDetails />
+          </div>
         </div>
       </div>
     </>

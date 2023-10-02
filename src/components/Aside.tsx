@@ -4,58 +4,58 @@ import styles from "./Aside.module.css";
 
 export interface Root {
   status: string;
+  results: number;
   data: Data;
 }
 
 export interface Data {
-  recipe: Recipe;
+  recipes: Recipe[];
 }
 
 export interface Recipe {
   publisher: string;
-  ingredients: Ingredient[];
-  source_url: string;
   image_url: string;
   title: string;
-  servings: number;
-  cooking_time: number;
   id: string;
 }
 
-export interface Ingredient {
-  quantity?: number;
-  unit: string;
-  description: string;
-}
-
 const Aside = () => {
-  const recipeId = "/5ed6604691c37cdc054bd007";
-
-  const { data, error } = useQuery<Recipe, Error>({
-    queryKey: ["recipe"],
+  const { data } = useQuery<Data>({
+    queryKey: ["recipes"],
     queryFn: () =>
-      apiClient.get<Root>(recipeId).then((res) => res.data.data.recipe),
-    staleTime: 1 * 60 * 1000, //1min
+      apiClient
+        .get<Root>("/", { params: { search: "pizza" } })
+        .then((res) => res.data.data),
+    staleTime: 10 * 60 * 1000,
   });
 
   return (
     <>
-      <p>{error?.message}</p>
-      <a href="#" className={`nav-link text-uppercase`}>
-        <div className="d-flex align-items-center p-2">
-          <img
-            className={`${styles["previewImage"]} rounded-circle object-fit-cover`}
-            src={data?.image_url}
-            alt={data?.title}
-          />
-          <div className="ps-3">
-            <p className={`${styles["previewTitle"]}  mb-1 `}>{data?.title}</p>
-            <p className={`mb-1 ${styles["previewPublisher"]}`}>
-              {data?.publisher}
-            </p>
-          </div>
-        </div>
-      </a>
+      {data?.recipes.map((recipe) => {
+        return (
+          <a
+            href="#"
+            key={recipe.id}
+            className={`nav-link text-uppercase border px-2 my-3`}
+          >
+            <div className="d-flex align-items-center p-2">
+              <img
+                className={`${styles["previewImage"]} rounded-circle object-fit-cover`}
+                src={recipe.image_url}
+                alt={recipe.title}
+              />
+              <div className="ps-3">
+                <p className={`${styles["previewTitle"]}  mb-1 `}>
+                  {recipe?.title}
+                </p>
+                <p className={`mb-1 ${styles["previewPublisher"]}`}>
+                  {recipe?.publisher}
+                </p>
+              </div>
+            </div>
+          </a>
+        );
+      })}
     </>
   );
 };
