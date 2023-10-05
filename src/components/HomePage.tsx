@@ -15,10 +15,10 @@ const HomePage = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-3 p-0">
+          <div className="col-3 p-0 d-none d-lg-block">
             <Aside />
           </div>
-          <div className={`col ${styles["aside"]}`}>
+          <div className={`col p-0`}>
             <RecipeDetails />
           </div>
         </div>

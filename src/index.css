@@ -4,6 +4,12 @@ body {
   background: linear-gradient(to bottom right, #fbdb89, #f48982);
   background-repeat: no-repeat;
   background-size: cover;
-  color: #615551;
+  /* color: #615551; */
+  /* TODO: */
+  color: aqua;
   min-height: calc(100vh - 8vw);
+}
+
+:root {
+  --themeFont: #f38e82;
 }

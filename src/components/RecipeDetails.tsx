@@ -1,6 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../services/api-client";
-import styles from "./RecipeDetaila.module.css";
+import styles from "./RecipeDetails.module.css";
+import { FiUsers } from "react-icons/fi";
+import { BiTimeFive } from "react-icons/bi";
+import { BsArrowRightShort, BsBookmark, BsCheck2 } from "react-icons/bs";
+import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
+// import "../index.css";
 
 export interface Root {
   status: string;
@@ -29,32 +34,102 @@ export interface Ingredient {
 }
 
 const RecipeDetails = () => {
-  const recipeId = "/5ed6604691c37cdc054bd007";
-
+  const recipeId = "/5ed6604591c37cdc054bcac4";
+  // "/5ed6604691c37cdc054bd007"
   const { data, error } = useQuery<Recipe, Error>({
     queryKey: ["recipe"],
     queryFn: () =>
       apiClient.get<Root>(recipeId).then((res) => res.data.data.recipe),
     staleTime: 1 * 60 * 1000, //1min
   });
+  if (error) return <p>{error?.message}</p>;
   return (
-    <div>
-      <p>{error?.message}</p>
-      <a href="#" className={`nav-link text-uppercase border`}>
-        <div className="d-flex align-items-center p-2">
-          <img
-            className={`${styles["previewImage"]} rounded-circle object-fit-cover`}
-            src={data?.image_url}
-            alt={data?.title}
-          />
-          <div className="ps-3">
-            <p className={`${styles["previewTitle"]}  mb-1 `}>{data?.title}</p>
-            <p className={`mb-1 ${styles["previewPublisher"]}`}>
-              {data?.publisher}
-            </p>
+    <div className={`${styles["recipeDetailContent"]}`}>
+      <section className={`${styles["heroContent"]}`}>
+        <img
+          className={`${styles["recipeImage"]} w-100 object-fit-cover`}
+          src={data?.image_url}
+          alt={data?.title}
+        />
+        <h1 className={`${styles["recipeTitle"]} text-white`}>
+          <span>{data?.title}</span>
+        </h1>
+      </section>
+      <div>
+        <section className="d-flex justify-content-between align-items-center my-4 py-4 pt-5 pe-2 pe-sm-0  mx-sm-5">
+          <div className="d-flex justify-content-around justify-content-sm-start   flex-grow-1 flex-grow-sm-0 ">
+            <div
+              className={`${styles["recipePublisher"]} d-sm-flex justify-content-start`}
+            >
+              <BiTimeFive className="me-1" color="#F38E82" size={25} />
+              <strong> {data?.cooking_time}</strong>
+              <span className="d-none d-sm-block ms-sm-2"> MINUTES</span>
+            </div>
+            <div className="d-sm-flex ms-sm-4">
+              <FiUsers className="me-1" color="#F38E82" size={25} />
+              <strong> {data?.servings}</strong>
+              <span className="d-none d-sm-block ms-sm-2"> SERVINGS</span>
+            </div>
+            <div className="d-flex  ms-sm-4">
+              <AiOutlinePlusCircle
+                className={`${styles["pointer"]}  me-2`}
+                color="#F38E82"
+                size={25}
+              />
+              <AiOutlineMinusCircle
+                className={`${styles["pointer"]}`}
+                color="#F38E82"
+                size={25}
+              />
+            </div>
           </div>
-        </div>
-      </a>
+          <div>
+            <BsBookmark
+              className={`${styles["pointer"]} me-4 me-sm-0`}
+              size={25}
+            />
+          </div>
+        </section>
+
+        <section className={`${styles["ingredients"]} pt-1 pb-5 px-4 px-sm-5`}>
+          <h6 className={`${styles["mainFont"]} text-center mt-4 py-4`}>
+            RECIPE INGREDIENTS
+          </h6>
+          {/* TODO: newQt = oldQt * newServings / oldServings */}
+          <ul className="list-unstyled row">
+            {data?.ingredients.map((recipe, i) => (
+              <li key={i} className="col-12 col-md-6">
+                <div className="d-flex align-items-start">
+                  <div className=" pt-3 pt-sm-4">
+                    <BsCheck2 color="#F38E82" size={20} />
+                  </div>
+                  <div className=" pt-3 pt-sm-4 ms-3">
+                    <span className=" me-2"> {recipe.quantity}</span>
+                    <span>{recipe.unit}</span> {recipe.description}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="p-3 px-4 p-sm-5 text-center">
+          <h6 className={`${styles["mainFont"]} py-4`}>HOW TO COOK IT</h6>
+          <p className=" px-sm-5 fs-5">
+            This recipe was carefully designed and tested by{" "}
+            <strong>{data?.publisher}</strong>. Please check out directions at
+            their website.
+          </p>
+          <a href={data?.source_url} target="_blanck">
+            <button
+              className={`${styles["btnDirection"]} my-4 ps-4 btn text-white rounded-pill`}
+            >
+              Directions{" "}
+              <BsArrowRightShort className={`me-2`} color="#fff" size={30} />
+            </button>
+          </a>
+        </section>
+      </div>
     </div>
   );
 };

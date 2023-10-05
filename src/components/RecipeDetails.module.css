@@ -1,0 +1,39 @@
+.recipeImage {
+  height: 360px;
+}
+
+.heroContent {
+  position: relative;
+}
+.recipeTitle {
+  text-align: center;
+  width: 50%;
+  position: absolute;
+  bottom: -20px;
+  left: 25%;
+  transform: skewY(-6deg);
+  line-height: 1.4;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.recipeTitle > span {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-image: linear-gradient(to bottom right, #fbdb89, #f48982);
+  padding: 3px 6px;
+}
+.recipeDetailContent {
+  background: #f9f5f3;
+}
+.ingredients {
+  background: #f2efee;
+}
+.mainFont {
+  color: var(--themeFont);
+}
+.btnDirection {
+  background: linear-gradient(to bottom right, #fbdb89, #f48982);
+}

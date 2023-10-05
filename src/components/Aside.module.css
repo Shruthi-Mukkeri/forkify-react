@@ -4,7 +4,7 @@
 }
 
 .previewTitle {
-  color: #f38e90;
+  color: var(--themeFont);
   font-size: 0.8rem;
 }
 

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../services/api-client";
 import styles from "./Aside.module.css";
+// import { useState } from "react";
 
 export interface Root {
   status: string;
@@ -19,18 +20,39 @@ export interface Recipe {
   id: string;
 }
 
+// interface PostQuery {
+//   page: number;
+//   pageSize: number;
+// }
+
 const Aside = () => {
+  // const pageSize = 10;
+  // const [page, setPage] = useState(1);
+
+  // const queryVar: PostQuery = {
+  //   page: page,
+  //   pageSize: pageSize,
+  // };
   const { data } = useQuery<Data>({
-    queryKey: ["recipes"],
+    queryKey: [
+      "recipes",
+      // queryVar
+    ],
     queryFn: () =>
       apiClient
-        .get<Root>("/", { params: { search: "pizza" } })
+        .get<Root>("/", {
+          params: {
+            search: "pizza",
+            // _start: (queryVar.page - 1) * queryVar.pageSize,
+            // _limit: "10",
+          },
+        })
         .then((res) => res.data.data),
     staleTime: 10 * 60 * 1000,
   });
 
   return (
-    <>
+    <div className="">
       {data?.recipes.map((recipe) => {
         return (
           <a
@@ -56,7 +78,7 @@ const Aside = () => {
           </a>
         );
       })}
-    </>
+    </div>
   );
 };
 
