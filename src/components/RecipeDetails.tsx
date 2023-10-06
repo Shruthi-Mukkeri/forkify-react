@@ -5,7 +5,7 @@ import { FiUsers } from "react-icons/fi";
 import { BiTimeFive } from "react-icons/bi";
 import { BsArrowRightShort, BsBookmark, BsCheck2 } from "react-icons/bs";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import "../index.css";
 
 export interface Root {
@@ -35,16 +35,33 @@ export interface Ingredient {
 }
 
 const RecipeDetails = () => {
-  const recipeId = "/5ed6604591c37cdc054bcb37";
-  // "/5ed6604691c37cdc054bd007"
+  const [hash, setHash] = useState("");
+  const [servingNo, SetServingNo] = useState<number>();
+
   const { data, error } = useQuery<Recipe, Error>({
-    queryKey: ["recipe"],
+    queryKey: ["recipe", hash],
     queryFn: () =>
-      apiClient.get<Root>(recipeId).then((res) => res.data.data.recipe),
+      apiClient.get<Root>("/" + hash).then((res) => res.data.data.recipe),
     staleTime: 1 * 60 * 1000, //1min
   });
-  //TODO: how to define dynamic serving number
-  const [servingNo, SetServingNo] = useState<number>(4);
+
+  const extractHashFromURL = () => {
+    const hashValue = window.location.hash.substring(1);
+    setHash(hashValue);
+  };
+
+  useEffect(() => {
+    extractHashFromURL();
+    window.addEventListener("hashchange", extractHashFromURL);
+    // Clean up the listener when the component unmounts
+    return () => {
+      window.removeEventListener("hashchange", extractHashFromURL);
+    };
+  }, [hash]);
+
+  useEffect(() => {
+    SetServingNo(data?.servings!);
+  }, [data?.servings]);
 
   if (error) return <p>{error?.message}</p>;
   return (
@@ -71,19 +88,19 @@ const RecipeDetails = () => {
             </div>
             <div className="d-sm-flex ms-sm-4">
               <FiUsers className="me-1" color="#F38E82" size={25} />
-              <strong> {servingNo}</strong>
+              <strong> {data?.servings}</strong>
               <span className="d-none d-sm-block ms-sm-2"> SERVINGS</span>
             </div>
             <div className="d-flex  ms-sm-4">
               <AiOutlinePlusCircle
-                onClick={() => SetServingNo(servingNo + 1)}
+                onClick={() => SetServingNo(servingNo! + 1)}
                 className={`${styles["pointer"]}  me-2`}
                 color="#F38E82"
                 size={25}
               />
               <AiOutlineMinusCircle
                 onClick={() => {
-                  if (servingNo > 1) return SetServingNo(servingNo - 1);
+                  if (servingNo! > 1) return SetServingNo(servingNo! - 1);
                 }}
                 className={`${styles["pointer"]}`}
                 color="#F38E82"
@@ -114,7 +131,7 @@ const RecipeDetails = () => {
                   <div className=" pt-3 pt-sm-4 ms-3">
                     <span className=" me-2">
                       {" "}
-                      {(recipe.quantity! * servingNo) / data.servings}
+                      {(recipe.quantity! * servingNo!) / data.servings}
                     </span>
                     <span>{recipe.unit}</span> {recipe.description}
                   </div>

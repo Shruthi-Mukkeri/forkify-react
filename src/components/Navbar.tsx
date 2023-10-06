@@ -5,7 +5,7 @@ import { LiaEdit } from "react-icons/lia";
 
 const Navbar = () => {
   return (
-    <div className="px-3 d-flex justify-content-between align-items-center">
+    <div className="px-sm-3 d-flex justify-content-between align-items-center">
       <img
         alt="logo"
         width={130}
