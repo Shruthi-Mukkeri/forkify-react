@@ -26,7 +26,8 @@
 } */
 
 .navBtn {
-  background: #f9f5f3;
+  /* background: #f9f5f3; */
+  background: var(--themeLightBackground);
   font-size: 1.1rem;
   /* padding: 2rem; */
 }

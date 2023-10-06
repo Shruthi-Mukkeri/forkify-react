@@ -56,9 +56,9 @@ const Aside = () => {
       {data?.recipes.map((recipe) => {
         return (
           <a
-            href="#"
+            href={"#" + recipe.id}
             key={recipe.id}
-            className={`nav-link text-uppercase border px-2 my-3`}
+            className={`${styles["previewRecipe"]} nav-link text-uppercase p-2 my-1`}
           >
             <div className="d-flex align-items-center p-2">
               <img

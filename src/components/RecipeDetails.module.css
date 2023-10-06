@@ -26,7 +26,8 @@
   padding: 3px 6px;
 }
 .recipeDetailContent {
-  background: #f9f5f3;
+  /* background: #f9f5f3; */
+  background: var(--themeLightBackground);
 }
 .ingredients {
   background: #f2efee;

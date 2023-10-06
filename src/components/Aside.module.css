@@ -11,3 +11,7 @@
 .previewPublisher {
   font-size: 0.7rem;
 }
+
+.previewRecipe:hover {
+  background: var(--themeLightBackground);
+}
