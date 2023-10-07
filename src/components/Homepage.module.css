@@ -4,7 +4,9 @@
   min-height: 117rem;
   margin: 0;
 }
-
+.recipeDetailContent {
+  background: var(--themeLightBackground);
+}
 .nav {
   background: #f9f5f3;
 }

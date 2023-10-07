@@ -68,7 +68,7 @@ const RecipeDetails = () => {
   if (error) {
     if (axios.isAxiosError(error))
       return (
-        <h5 className="py-5 text-center">
+        <h5 className={`py-5 text-center h-full`}>
           Start by searching for a recipe or an ingredient. Have fun!
         </h5>
       );
@@ -94,7 +94,7 @@ const RecipeDetails = () => {
         </h1>
       </section>
       <div>
-        <section className="d-flex justify-content-between align-items-center my-4 py-4 pt-5 pe-2 pe-sm-0  mx-sm-5">
+        <section className="d-flex justify-content-between align-items-center my-4 py-4 pt-5 pe-2 pe-sm-0 mx-sm-5">
           <div className="d-flex justify-content-around justify-content-sm-start   flex-grow-1 flex-grow-sm-0 ">
             <div
               className={`${styles["recipePublisher"]} d-sm-flex justify-content-start`}

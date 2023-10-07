@@ -20,7 +20,7 @@ const HomePage = () => {
           <div className="col-3 p-0 d-none d-lg-block">
             <Aside previewName={searchInput} />
           </div>
-          <div className={`col p-0`}>
+          <div className={`col p-0 ${styles["recipeDetailContent"]}`}>
             <RecipeDetails />
           </div>
         </div>

@@ -25,10 +25,9 @@
   background-image: linear-gradient(to bottom right, #fbdb89, #f48982);
   padding: 3px 6px;
 }
-.recipeDetailContent {
-  /* background: #f9f5f3; */
+/* .recipeDetailContent {
   background: var(--themeLightBackground);
-}
+} */
 .ingredients {
   background: #f2efee;
 }
