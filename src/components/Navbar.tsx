@@ -1,9 +1,15 @@
+import { useRef } from "react";
 import logo from "../assets/logo.png";
 import styles from "./Navbar.module.css";
 import { BsBookmark, BsSearch } from "react-icons/bs";
 import { LiaEdit } from "react-icons/lia";
 
-const Navbar = () => {
+interface Props {
+  onSearch: (searchValue: string) => void;
+}
+
+const Navbar = ({ onSearch }: Props) => {
+  const searchRef = useRef<HTMLInputElement>(null);
   return (
     <div className="px-sm-3 d-flex justify-content-between align-items-center">
       <img
@@ -12,9 +18,17 @@ const Navbar = () => {
         className={`${styles.logo} object-fit-contain pe-3 my-3 my-md-0`}
         src={logo}
       ></img>
-      <div className={`${styles["inputSearch"]} d-flex rounded-pill bg-white`}>
+
+      <form
+        className={`${styles["inputSearch"]} d-flex rounded-pill bg-white`}
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (searchRef.current) onSearch(searchRef.current.value);
+        }}
+      >
         <input
           type="text"
+          ref={searchRef}
           className={`${styles["inputSearchElement"]} w-100 fs-6 ps-1 ps-sm-3 ps-md-4 rounded-pill border-0 `}
           placeholder="Search over 1,000,000 recipes..."
         ></input>
@@ -28,7 +42,7 @@ const Navbar = () => {
             SEARCH
           </button>
         </div>
-      </div>
+      </form>
 
       <div className="d-flex flex-no-wrap">
         <div

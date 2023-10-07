@@ -1,9 +1,11 @@
+import { useState } from "react";
 import Aside from "./Aside";
 import styles from "./Homepage.module.css";
 import Navbar from "./Navbar";
 import RecipeDetails from "./RecipeDetails";
 
 const HomePage = () => {
+  const [searchInput, setSearchInput] = useState("");
   return (
     <>
       <div
@@ -11,12 +13,12 @@ const HomePage = () => {
       >
         <div className="row">
           <div className={`col ${styles["nav"]}`}>
-            <Navbar />
+            <Navbar onSearch={(searchValue) => setSearchInput(searchValue)} />
           </div>
         </div>
         <div className="row">
           <div className="col-3 p-0 d-none d-lg-block">
-            <Aside />
+            <Aside previewName={searchInput} />
           </div>
           <div className={`col p-0`}>
             <RecipeDetails />

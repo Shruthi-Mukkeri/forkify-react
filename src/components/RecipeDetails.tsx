@@ -6,6 +6,7 @@ import { BiTimeFive } from "react-icons/bi";
 import { BsArrowRightShort, BsBookmark, BsCheck2 } from "react-icons/bs";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
+import axios from "axios";
 // import "../index.css";
 
 export interface Root {
@@ -36,12 +37,13 @@ export interface Ingredient {
 
 const RecipeDetails = () => {
   const [hash, setHash] = useState("");
-  const [servingNo, SetServingNo] = useState<number>();
 
-  const { data, error } = useQuery<Recipe, Error>({
-    queryKey: ["recipe", hash],
+  const [servingNo, SetServingNo] = useState<number>();
+  const RecipeId = `/${hash}`;
+  const { data, error, isLoading } = useQuery<Recipe, Error>({
+    queryKey: ["recipe", RecipeId],
     queryFn: () =>
-      apiClient.get<Root>("/" + hash).then((res) => res.data.data.recipe),
+      apiClient.get<Root>(RecipeId).then((res) => res.data.data.recipe),
     staleTime: 1 * 60 * 1000, //1min
   });
 
@@ -63,7 +65,22 @@ const RecipeDetails = () => {
     SetServingNo(data?.servings!);
   }, [data?.servings]);
 
-  if (error) return <p>{error?.message}</p>;
+  if (error) {
+    if (axios.isAxiosError(error))
+      return (
+        <h5 className="py-5 text-center">
+          Start by searching for a recipe or an ingredient. Have fun!
+        </h5>
+      );
+    else {
+      // console.error("Error:", error);
+      return <h1>{error.message}</h1>;
+    }
+  }
+  // if (error) return <h1 className="text-danger py-5">{error?.message}</h1>;
+  if (isLoading) return <h1>Loading...</h1>;
+  // if (!data?.id)
+  //   return <h1>Start by searching for a recipe or an ingredient. Have fun!</h1>;
   return (
     <div className={`${styles["recipeDetailContent"]}`}>
       <section className={`${styles["heroContent"]}`}>
@@ -88,24 +105,28 @@ const RecipeDetails = () => {
             </div>
             <div className="d-sm-flex ms-sm-4">
               <FiUsers className="me-1" color="#F38E82" size={25} />
-              <strong> {data?.servings}</strong>
+              <strong> {servingNo}</strong>
               <span className="d-none d-sm-block ms-sm-2"> SERVINGS</span>
             </div>
             <div className="d-flex  ms-sm-4">
-              <AiOutlinePlusCircle
-                onClick={() => SetServingNo(servingNo! + 1)}
-                className={`${styles["pointer"]}  me-2`}
-                color="#F38E82"
-                size={25}
-              />
-              <AiOutlineMinusCircle
-                onClick={() => {
-                  if (servingNo! > 1) return SetServingNo(servingNo! - 1);
-                }}
-                className={`${styles["pointer"]}`}
-                color="#F38E82"
-                size={25}
-              />
+              <button className="btn border-0 p-0">
+                <AiOutlineMinusCircle
+                  onClick={() => {
+                    if (servingNo! > 1) return SetServingNo(servingNo! - 1);
+                  }}
+                  className={`${styles["pointer"]}`}
+                  color="#F38E82"
+                  size={25}
+                />
+              </button>
+              <button className="btn border-0 p-0">
+                <AiOutlinePlusCircle
+                  onClick={() => SetServingNo(servingNo! + 1)}
+                  className={`${styles["pointer"]}  me-2`}
+                  color="#F38E82"
+                  size={25}
+                />
+              </button>
             </div>
           </div>
           <div>
@@ -131,7 +152,8 @@ const RecipeDetails = () => {
                   <div className=" pt-3 pt-sm-4 ms-3">
                     <span className=" me-2">
                       {" "}
-                      {(recipe.quantity! * servingNo!) / data.servings}
+                      {recipe.quantity &&
+                        (recipe.quantity! * servingNo!) / data.servings}
                     </span>
                     <span>{recipe.unit}</span> {recipe.description}
                   </div>

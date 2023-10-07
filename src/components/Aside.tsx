@@ -24,8 +24,11 @@ export interface Recipe {
 //   page: number;
 //   pageSize: number;
 // }
+interface Props {
+  previewName: string;
+}
 
-const Aside = () => {
+const Aside = ({ previewName }: Props) => {
   // const pageSize = 10;
   // const [page, setPage] = useState(1);
 
@@ -33,26 +36,40 @@ const Aside = () => {
   //   page: page,
   //   pageSize: pageSize,
   // };
-  const { data } = useQuery<Data>({
-    queryKey: [
-      "recipes",
-      // queryVar
-    ],
+  const { data, isLoading, error } = useQuery<Data, Error>({
+    queryKey: ["recipes", previewName],
     queryFn: () =>
       apiClient
         .get<Root>("/", {
           params: {
-            search: "pizza",
-            // _start: (queryVar.page - 1) * queryVar.pageSize,
-            // _limit: "10",
+            search: previewName,
           },
         })
         .then((res) => res.data.data),
+
     staleTime: 10 * 60 * 1000,
   });
+  // console.log("data is: ", data);
 
+  if (isLoading) return <h1>Loading....</h1>;
+  if (error) return <h1>{error.message}</h1>;
+
+  // if (!data) {
+  //   console.log("data issssssssss:", data);
+  //   return <h1>No recipe found for your query! Please try again</h1>;
+  // }
+
+  // data?.recipes.length! > 0 ? (
+  //   <h1>loadin</h1>
+  // ) :
+  if (data.recipes.length < 1)
+    return (
+      <h5 className="text-center py-5">
+        No recipe found. <br /> Please try again
+      </h5>
+    );
   return (
-    <div className="">
+    <>
       {data?.recipes.map((recipe) => {
         return (
           <a
@@ -78,7 +95,7 @@ const Aside = () => {
           </a>
         );
       })}
-    </div>
+    </>
   );
 };
 
