@@ -15,7 +15,6 @@ const Navbar = ({ onSearch }: Props) => {
 
   const handleAddRecipeToggle = () => {
     setIsOpenAddRecipe(!isOpenAddRecipe);
-    console.log("clicked", isOpenAddRecipe);
   };
 
   return (

@@ -76,29 +76,29 @@ const AddRecipe = ({ onClose }: Props) => {
   return (
     <>
       <div
-        className={`${styles.overlay} vh-100 position-fixed top-0 start-0 end-0`}
+        className={`${styles.overlay} position-fixed top-0 start-0 end-0`}
         onClick={() => {
           onClose();
-          console.log("overlay clicked");
         }}
       ></div>
       <div
-        className={`${styles.addRecipeWindow} position-fixed top-50 start-50 p-2 p-md-3 bg-white rounded-3 m-auto`}
+        className={`${[styles.addRecipeWindow, styles.formFont].join(
+          " "
+        )} position-fixed px-4 p-3 p-md-4 bg-white rounded-3`}
       >
         <div className="d-flex justify-content-end w-100">
           <IoClose
             onClick={() => {
               onClose();
-              console.log("close clicked");
             }}
-            className="pointer"
+            className="pointer mt-3"
             size={28}
           />
         </div>
-        <form className="p-md-4" onSubmit={handleSubmit(handleFormSubmit)}>
+        <form className={`p-sm-3 `} onSubmit={handleSubmit(handleFormSubmit)}>
           <div className="row">
             <div className="col-12 col-md-6">
-              <h3>RECIPE DATA</h3>
+              <h3 className="pt-3 pt-sm-0">RECIPE DATA</h3>
               <div className="row pt-2 ">
                 <div className="col-3">
                   <label htmlFor="title">Title</label>
@@ -185,7 +185,7 @@ const AddRecipe = ({ onClose }: Props) => {
               </div>
             </div>
             <div className="col-12 col-md-6">
-              <h3>INGREDIENTS</h3>
+              <h3 className="pt-4 pt-md-0">INGREDIENTS</h3>
               <div className="row pt-2">
                 <div className="col-5 col-sm-4">
                   <label className="text-nowrap pt-2" htmlFor="ingredients1">
@@ -294,7 +294,7 @@ const AddRecipe = ({ onClose }: Props) => {
             <button
               className={`${[
                 styles.btnAdd,
-              ]} rounded-pill px-4 py-2  btn border-0 text-white`}
+              ]} mb-4 mb-md-0 rounded-pill px-4 py-2 mt-3 mt-md-0  btn border-0 text-white`}
               type="submit"
             >
               <FiUploadCloud size={23} className="me-2" />

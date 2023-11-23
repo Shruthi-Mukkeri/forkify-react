@@ -1,18 +1,39 @@
 .addRecipeWindow {
   width: 100%;
-  max-width: 850px;
+  max-width: 950px;
   z-index: 1000;
-  transform: translate(-50%, -50%);
+  left: 0;
+  height: 100%;
+  overflow: auto;
+  top: 0;
+  /* left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); */
+  /* overflow: scroll; */
 }
 
 .overlay {
   backdrop-filter: blur(4px);
   background-color: #0006;
   z-index: 100;
+  height: 100%;
+  width: 100%;
 }
 .btnAdd {
   background-image: linear-gradient(to bottom right, #fbdb89, #f48982);
 }
+.formFont {
+  font-size: 1rem;
+}
 
-@media screen and (width: 768px) {
+@media screen and (min-width: 768px) {
+  .addRecipeWindow {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+  }
+  .formFont {
+    font-size: 1.1rem;
+  }
 }
