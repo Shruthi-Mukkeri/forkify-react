@@ -1,0 +1,18 @@
+.addRecipeWindow {
+  width: 100%;
+  max-width: 850px;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+}
+
+.overlay {
+  backdrop-filter: blur(4px);
+  background-color: #0006;
+  z-index: 100;
+}
+.btnAdd {
+  background-image: linear-gradient(to bottom right, #fbdb89, #f48982);
+}
+
+@media screen and (width: 768px) {
+}

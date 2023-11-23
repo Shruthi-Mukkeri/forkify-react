@@ -44,7 +44,7 @@ const RecipeDetails = () => {
     queryKey: ["recipe", RecipeId],
     queryFn: () =>
       apiClient.get<Root>(RecipeId).then((res) => res.data.data.recipe),
-    staleTime: 1 * 60 * 1000, //1min
+    staleTime: 10 * 60 * 1000, //1min
   });
 
   const extractHashFromURL = () => {
@@ -69,7 +69,7 @@ const RecipeDetails = () => {
     if (axios.isAxiosError(error))
       return (
         <h5 className={`py-5 text-center h-full`}>
-          Start by searching for a recipe or an ingredient. Have fun!
+          : ) Start by searching for a recipe or an ingredient. Have fun!
         </h5>
       );
     else {

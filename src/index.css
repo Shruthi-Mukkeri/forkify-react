@@ -14,3 +14,7 @@ body {
   --themeFont: #f38e82;
   --themeLightBackground: #f9f5f3;
 }
+
+.pointer {
+  cursor: pointer;
+}

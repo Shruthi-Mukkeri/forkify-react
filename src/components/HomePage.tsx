@@ -3,6 +3,7 @@ import Aside from "./Aside";
 import styles from "./Homepage.module.css";
 import Navbar from "./Navbar";
 import RecipeDetails from "./RecipeDetails";
+// import AddRecipe from "./AddRecipe";
 
 const HomePage = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -21,7 +22,8 @@ const HomePage = () => {
             <Aside previewName={searchInput} />
           </div>
           <div className={`col p-0 ${styles["recipeDetailContent"]}`}>
-            <RecipeDetails />
+            {/* <RecipeDetails /> */}
+            {/* <AddRecipe /> */}
           </div>
         </div>
       </div>
