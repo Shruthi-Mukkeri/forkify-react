@@ -3,11 +3,10 @@ import apiClient from "../services/api-client";
 import styles from "./RecipeDetails.module.css";
 import { FiUsers } from "react-icons/fi";
 import { BiTimeFive } from "react-icons/bi";
+import { FaBookmark } from "react-icons/fa";
 import { BsArrowRightShort, BsBookmark, BsCheck2 } from "react-icons/bs";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import axios from "axios";
-// import "../index.css";
 
 export interface Root {
   status: string;
@@ -37,19 +36,34 @@ export interface Ingredient {
 
 const RecipeDetails = () => {
   const [hash, setHash] = useState("");
-
   const [servingNo, SetServingNo] = useState<number>();
+  const [bookmarked, setBookmarked] = useState<boolean>(false);
+  const [bookmarkList, setBookmarkList] = useState<Recipe[]>([]);
+  // console.log(bookmarkList, "aside component");
+
+  const addToBookmarkList = (recipe: Recipe | undefined) => {
+    if (!recipe) return;
+    setBookmarkList((prevList) =>
+      prevList.some((r) => r.id === recipe.id)
+        ? prevList.filter((r) => r.id !== recipe.id)
+        : [...prevList, recipe]
+    );
+  };
+  // console.log(bookmarkList, "ssssssssssssss");
+
   const RecipeId = `/${hash}`;
   const { data, error, isLoading } = useQuery<Recipe, Error>({
     queryKey: ["recipe", RecipeId],
     queryFn: () =>
       apiClient.get<Root>(RecipeId).then((res) => res.data.data.recipe),
     staleTime: 10 * 60 * 1000, //1min
+    enabled: !!hash, // Enable the query only when hash is present
   });
 
   const extractHashFromURL = () => {
     const hashValue = window.location.hash.substring(1);
     setHash(hashValue);
+    // setBookmarked(false); // Toggle bookmark status
   };
 
   useEffect(() => {
@@ -65,24 +79,20 @@ const RecipeDetails = () => {
     SetServingNo(data?.servings!);
   }, [data?.servings]);
 
-  if (error) {
-    if (axios.isAxiosError(error))
-      return (
-        <h5 className={`py-5 text-center h-full`}>
-          : ) Start by searching for a recipe or an ingredient. Have fun!
-        </h5>
-      );
-    else {
-      // console.error("Error:", error);
-      return <h1>{error.message}</h1>;
-    }
+  if (!hash) {
+    return (
+      <h5 className={`py-5 text-center h-full`}>
+        : ) Start by searching for a recipe or an ingredient. Have fun!
+      </h5>
+    );
   }
-  // if (error) return <h1 className="text-danger py-5">{error?.message}</h1>;
+
+  if (error) return <h1 className="text-danger py-5">{error?.message}</h1>;
   if (isLoading) return <h1>Loading...</h1>;
-  // if (!data?.id)
-  //   return <h1>Start by searching for a recipe or an ingredient. Have fun!</h1>;
+
   return (
-    <div className={`${styles["recipeDetailContent"]}`}>
+    <>
+      {/* recipe image of page */}
       <section className={`${styles["heroContent"]}`}>
         <img
           className={`${styles["recipeImage"]} w-100 object-fit-cover`}
@@ -94,6 +104,7 @@ const RecipeDetails = () => {
         </h1>
       </section>
       <div>
+        {/* details of recipe data under image */}
         <section className="d-flex justify-content-between align-items-center my-4 py-4 pt-5 pe-2 pe-sm-0 mx-sm-5">
           <div className="d-flex justify-content-around justify-content-sm-start   flex-grow-1 flex-grow-sm-0 ">
             <div
@@ -129,14 +140,29 @@ const RecipeDetails = () => {
               </button>
             </div>
           </div>
-          <div>
-            <BsBookmark
-              className={`${styles["pointer"]} me-4 me-sm-0`}
-              size={25}
-            />
+          <div
+            className="bg-warning rounded-pill p-2 btnBackground"
+            onClick={() => {
+              setBookmarked(!bookmarked); // Toggle bookmark status
+              addToBookmarkList(data!); // Add or remove from bookmark list
+            }}
+          >
+            {bookmarked ? (
+              <FaBookmark
+                className={`${styles["pointer"]}`}
+                color={"white"}
+                size={23}
+              />
+            ) : (
+              <BsBookmark
+                className={`${styles["pointer"]}`}
+                color={"white"}
+                size={23}
+              />
+            )}
           </div>
         </section>
-
+        {/* Ingredients of image under details */}
         <section className={`${styles["ingredients"]} pt-1 pb-5 px-4 px-sm-5`}>
           <h6 className={`${styles["mainFont"]} text-center mt-4 py-4`}>
             RECIPE INGREDIENTS
@@ -162,7 +188,7 @@ const RecipeDetails = () => {
             ))}
           </ul>
         </section>
-
+        {/* recipe link form where it taken */}
         <section className="p-3 px-4 p-sm-5 text-center">
           <h6 className={`${styles["mainFont"]} py-4`}>HOW TO COOK IT</h6>
           <p className=" px-sm-5 fs-5">
@@ -171,16 +197,14 @@ const RecipeDetails = () => {
             their website.
           </p>
           <a href={data?.source_url} target="_blanck">
-            <button
-              className={`${styles["btnDirection"]} my-4 ps-4 btn text-white rounded-pill`}
-            >
+            <button className="btnBackground my-4 ps-4 btn text-white rounded-pill">
               Directions{" "}
               <BsArrowRightShort className={`me-2`} color="#fff" size={30} />
             </button>
           </a>
         </section>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import styles from "./Navbar.module.css";
 import { BsBookmark, BsSearch } from "react-icons/bs";
 import { LiaEdit } from "react-icons/lia";
 import AddRecipe from "./AddRecipe";
+import BookmarkRecipes from "./BookmarkRecipes";
 
 interface Props {
   onSearch: (searchValue: string) => void;
@@ -11,6 +12,19 @@ interface Props {
 
 const Navbar = ({ onSearch }: Props) => {
   const [isOpenAddRecipe, setIsOpenAddRecipe] = useState(false);
+
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+    // console.log("hovering");
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+    // console.log("not hovering");
+  };
+
   const searchRef = useRef<HTMLInputElement>(null);
 
   const handleAddRecipeToggle = () => {
@@ -42,7 +56,7 @@ const Navbar = ({ onSearch }: Props) => {
             placeholder="Search over 1,000,000 recipes..."
           ></input>
           <div
-            className={`${styles["searchBtn"]} p-2 p-md-3 px-md-4 rounded-pill text-white d-flex align-items-center`}
+            className={`${styles["searchBtn"]} btnBackground p-2 p-md-3 px-md-4 rounded-pill text-white d-flex align-items-center`}
           >
             <BsSearch className="ms-md-3 " size="18" />
             <button
@@ -69,9 +83,14 @@ const Navbar = ({ onSearch }: Props) => {
           </div>
 
           <div
-            className={`${[styles.navBtn, styles.cursor].join(
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+            className={`${[styles.navBtn, styles.cursor, styles.bookMark].join(
               " "
             )} d-flex align-items-center  p-2 py-md-4`}
+            onClick={() => {
+              console.log("clicked");
+            }}
           >
             <BsBookmark title="Bookmark" color="#F38E82" size="18" />
             <button
@@ -89,6 +108,17 @@ const Navbar = ({ onSearch }: Props) => {
       >
         <AddRecipe isOpen={isOpenAddRecipe} onClose={handleAddRecipeToggle} />
       </div>
+      {isHovering ? (
+        <div
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
+          className={`${styles.bookmarkHoverContent} p-4`}
+        >
+          <BookmarkRecipes />
+        </div>
+      ) : (
+        " "
+      )}
     </>
   );
 };

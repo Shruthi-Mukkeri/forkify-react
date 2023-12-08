@@ -13,9 +13,9 @@
 /* .inputSearchElement {
   max-width: 30rem;
 } */
-.searchBtn {
+/* .searchBtn {
   background: linear-gradient(to bottom right, #fbdb89, #f48982);
-}
+} */
 .searchBtn:hover {
   transform: scale(1.05);
   transition: all 0.2s;
@@ -49,4 +49,21 @@
 
 .cursor {
   cursor: pointer;
+}
+
+/* .bookMark:hover:after {
+  position: relative;
+  content: " ";
+  height: 22px;
+  width: 22px;
+  background-color: darkblue;
+  top: 0;
+  left: 0;
+} */
+.bookmarkHoverContent {
+  position: absolute;
+  top: 90px;
+  right: 0;
+  background-color: chocolate;
+  z-index: 50;
 }
