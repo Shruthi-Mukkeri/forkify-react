@@ -17,7 +17,9 @@ const HomePage = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-3 p-0 d-none d-lg-block">
+          <div
+            className={`col-4 p-0 d-none d-lg-block bg-danger ${styles.AsideHeight}`}
+          >
             <Aside previewName={searchInput} />
           </div>
           <div className={`col p-0 ${styles["recipeDetailContent"]}`}>

@@ -53,7 +53,7 @@ const RecipeDetails = () => {
 
   const RecipeId = `/${hash}`;
   const { data, error, isLoading } = useQuery<Recipe, Error>({
-    queryKey: ["recipe", RecipeId],
+    queryKey: ["recipeDetails", RecipeId],
     queryFn: () =>
       apiClient.get<Root>(RecipeId).then((res) => res.data.data.recipe),
     staleTime: 10 * 60 * 1000, //1min

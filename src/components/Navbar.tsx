@@ -33,11 +33,14 @@ const Navbar = ({ onSearch }: Props) => {
 
   return (
     <>
-      <div className="px-sm-3 d-flex justify-content-between align-items-center">
+      <div
+        id={styles.navbar}
+        className="px-sm-3 d-flex justify-content-between align-items-center"
+      >
         <img
           alt="logo"
           width={130}
-          className={`${styles.logo} object-fit-contain pe-3 my-3 my-md-0`}
+          className={`object-fit-contain pe-3 my-3 my-md-0`}
           src={logo}
         ></img>
 
@@ -56,9 +59,9 @@ const Navbar = ({ onSearch }: Props) => {
             placeholder="Search over 1,000,000 recipes..."
           ></input>
           <div
-            className={`${styles["searchBtn"]} btnBackground p-2 p-md-3 px-md-4 rounded-pill text-white d-flex align-items-center`}
+            className={`${styles["searchBtn"]} pointer btnBackground p-2 p-md-3 px-md-4 rounded-pill text-white d-flex align-items-center`}
           >
-            <BsSearch className="ms-md-3 " size="18" />
+            <BsSearch title={"Search"} className="ms-md-3" size="18" />
             <button
               className={`bg-transparent d-none d-md-block mx-2 text-white fs-6 border-0 rounded-pill  `}
             >
@@ -69,9 +72,7 @@ const Navbar = ({ onSearch }: Props) => {
 
         <div className="d-flex flex-no-wrap">
           <div
-            className={`${[styles.navBtn, styles.cursor].join(
-              " "
-            )} ms-2 d-flex align-items-center p-2 py-md-4`}
+            className={`${styles.navBtn} pointer ms-2 d-flex align-items-center p-2 py-md-4`}
             onClick={() => handleAddRecipeToggle()}
           >
             <LiaEdit title="Add Recipe" color="#F38E82" size="24" />

@@ -1,0 +1,20 @@
+.btnPagination {
+  background: #f9f5f3;
+  font-size: 1rem;
+  color: #f38e82;
+  padding: 0.4rem 1.4rem;
+  cursor: pointer;
+}
+
+/* btn--inline {
+  border: none;
+  border-radius: 10rem;
+  align-items: center;
+  font-weight: 600;
+  transition: all 0.2s;
+}*/
+
+.btnPagination:hover {
+  color: #f48982;
+  background-color: #f2efee;
+}
