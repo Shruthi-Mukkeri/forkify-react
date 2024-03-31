@@ -188,7 +188,7 @@ const RecipeDetails = () => {
             ))}
           </ul>
         </section>
-        {/* recipe link form where it taken */}
+        {/* recipe link form where it taken. */}
         <section className="p-3 px-4 p-sm-5 text-center">
           <h6 className={`${styles["mainFont"]} py-4`}>HOW TO COOK IT</h6>
           <p className=" px-sm-5 fs-5">

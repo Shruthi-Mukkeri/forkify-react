@@ -1,5 +1,15 @@
 #navbar {
-  height: 5rem;
+  height: 4rem;
+}
+
+@media only screen and (width <=61.25em) {
+  #navbar {
+    height: 5rem;
+  }
+}
+
+.logo {
+  height: 4.6rem;
 }
 
 .inputSearchElement::placeholder {
@@ -14,20 +24,10 @@
   width: 30rem;
   /* max-width: 20rem; */
 }
-/* .inputSearchElement {
-  max-width: 30rem;
-} */
-/* .searchBtn {
-  background: linear-gradient(to bottom right, #fbdb89, #f48982);
-} */
 .searchBtn:hover {
   transform: scale(1.05);
   transition: all 0.2s;
 }
-/* .logo {
-  object-fit: contain;
-  background:;
-} */
 
 .navBtn {
   /* background: #f9f5f3; */
@@ -38,7 +38,6 @@
 
 .navBtn:hover {
   background: #f2efee;
-  /* background-color: red; */
 }
 
 @media (width <= 1400px) {
