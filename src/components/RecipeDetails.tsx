@@ -49,7 +49,12 @@ const RecipeDetails = () => {
         : [...prevList, recipe]
     );
   };
-  // console.log(bookmarkList, "ssssssssssssss");
+  // localStorage.setItem("bookmarks", JSON.stringify(bookmarkList));
+  useEffect(() => {
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarkList));
+  }, [bookmarkList]);
+  console.log(bookmarkList, "ssssssssssssss");
+  console.log(JSON.stringify(bookmarkList), "JSON.stringify(bookmarkList)");
 
   const RecipeId = `/${hash}`;
   const { data, error, isLoading } = useQuery<Recipe, Error>({
@@ -65,6 +70,12 @@ const RecipeDetails = () => {
     setHash(hashValue);
     // setBookmarked(false); // Toggle bookmark status
   };
+  useEffect(() => {
+    // if searched value exisits in local storage means already bookmarked then set bookmark to true
+    // else the searchvalue item has no bookmark in db then set bookmark to false
+  }, [
+    hash, // the search value
+  ]);
 
   useEffect(() => {
     extractHashFromURL();
